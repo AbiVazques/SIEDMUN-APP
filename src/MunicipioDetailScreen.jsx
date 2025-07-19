@@ -153,6 +153,15 @@ function MunicipioDetailScreen() {
 
   const handleUpdateSectionEdit = async () => {
     sectionData.contenido.body = editedSectionContent;
+    if (sectionData.id) {
+      updateSection();
+    } else {
+      // Si no hay ID, se crea una nueva sección
+      createSection();
+    }
+  };
+
+  const updateSection = async () => {
     setLoading(true);
     setError(null);
     try {
@@ -173,6 +182,41 @@ function MunicipioDetailScreen() {
     } catch (err) {
       console.error("Error al guardar la sección:", err);
       setError(`No se pudieron guardar los cambios: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createSection = async () => {
+    setLoading(true);
+    setError(null);
+    console.log("Creando nueva sección para indice:", activeSectionKey);
+    let data = {
+      "indice_id": activeSectionKey,
+      "tipo": "texto",
+      contenido: {
+        titulo: "tbd",
+        body: editedSectionContent,
+      },
+    };
+    try {
+      const response = await fetch(`${BASE_URL}/secciones/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error HTTP al guardar: ${response.status} - ${errorData.error || response.statusText}`);
+      }
+      const createdSection = await response.json();
+      setSectionData(createdSection);
+      setIsEditingSection(false);
+    } catch (err) {
+      console.error("Error al creat la sección:", err);
+      setError(`No se pudo crear la seccion: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -298,22 +342,20 @@ function MunicipioDetailScreen() {
             </div>
           ) : (
             <div style={{ padding: 0 }}>
-              <h2 className="section-title" style={{ margin: 0, padding: 0 }} >
-                {sectionData.contenido?.titulo || 'Sección sin título'}
-              </h2>
               <div
-                style={{ justifyContent: 'center', alignItems: 'center', padding: '24px 0' }}
+                style={{ justifyContent: 'center', alignItems: 'center', padding: '10px 0' }}
                 dangerouslySetInnerHTML={{ __html: sectionData.contenido?.body || '' }}
               />
               <div className="detail-buttons-container">
                 <button className="download-button" onClick={() => handleDownload('word')}>WORD</button>
                 <button className="download-button" onClick={() => handleDownload('pdf')}>PDF</button>
               </div>
-            </div>
-          )}
-        </div>
-      </main>
-    </div>
+            </div >
+          )
+          }
+        </div >
+      </main >
+    </div >
   );
 }
 
