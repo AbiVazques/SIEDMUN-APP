@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './AddElementScreen.css';
 import './MunicipioDetailScreen.css';
+import HtmlEditor from './HtmlEditor';
 
 function MunicipioDetailScreen() {
   const navigate = useNavigate();
   const { id: municipioId } = useParams();
 
   const [municipioIndexData, setMunicipioIndexData] = useState(null);
+  const [sectionData, setSectionData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -34,14 +36,10 @@ function MunicipioDetailScreen() {
           setMunicipioIndexData(indexFound);
 
           if (indexFound.elementos && indexFound.elementos.length > 0) {
-            const mensajeElemento = indexFound.elementos.find(el => el.titulo === 'MENSAJE DEL PRESIDENTE MUNICIPAL CONSTITUCIONAL');
-            if (mensajeElemento) {
-              setActiveSectionKey(mensajeElemento.id);
-              setEditedSectionContent(mensajeElemento.titulo);
-            } else {
-              setActiveSectionKey(indexFound.elementos[0].id);
-              setEditedSectionContent(indexFound.elementos[0].titulo);
-            }
+            const mensajeElemento = indexFound.elementos[0];
+            setActiveSectionKey(mensajeElemento.id);
+            setEditedSectionContent(mensajeElemento.titulo);
+            fetchSectionData(mensajeElemento.id);
           }
         } else {
           setMunicipioIndexData(null);
@@ -60,6 +58,23 @@ function MunicipioDetailScreen() {
     }
   }, [municipioId, navigate]);
 
+  const fetchSectionData = async (elementId) => {
+    try {
+      const res = await fetch(`${BASE_URL}/secciones/indices/${elementId}`);
+      const data = await res.json();
+      if (data && data.contenido) {
+        setSectionData(data);
+        setEditedSectionContent(data.contenido.body);
+      } else {
+        data.contenido = {}
+        data.contenido.body = "No hay contenido disponible para esta sección.";
+        setSectionData(data);
+      }
+    } catch {
+      setSectionData({ contenido: { body: 'Error al cargar el contenido de la sección.' } });
+    }
+  };
+
   useEffect(() => {
     if (municipioIndexData && activeSectionKey) {
       const currentElement = municipioIndexData.elementos.find(el => el.id === activeSectionKey);
@@ -73,6 +88,7 @@ function MunicipioDetailScreen() {
   };
 
   const handleSectionClick = (elementId) => {
+    fetchSectionData(elementId)
     if (isEditingSection) {
       if (!window.confirm('Estás editando. ¿Deseas cambiar de sección sin guardar los cambios actuales?')) {
         return;
@@ -80,7 +96,7 @@ function MunicipioDetailScreen() {
     }
     setActiveSectionKey(elementId);
   };
-  
+
   const handleEditSectionClick = () => {
     setIsEditingSection(true);
   };
@@ -133,6 +149,33 @@ function MunicipioDetailScreen() {
     const currentElement = municipioIndexData.elementos.find(el => el.id === activeSectionKey);
     setEditedSectionContent(currentElement ? currentElement.titulo : '');
     setIsEditingSection(false);
+  };
+
+  const handleUpdateSectionEdit = async () => {
+    sectionData.contenido.body = editedSectionContent;
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`${BASE_URL}/secciones/${sectionData.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(sectionData),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error HTTP al guardar: ${response.status} - ${errorData.error || response.statusText}`);
+      }
+      const updatedSection = await response.json();
+      setSectionData(updatedSection);
+      setIsEditingSection(false);
+    } catch (err) {
+      console.error("Error al guardar la sección:", err);
+      setError(`No se pudieron guardar los cambios: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDownload = (format) => {
@@ -235,7 +278,6 @@ function MunicipioDetailScreen() {
                 onClick={() => handleSectionClick(elemento.id)}
               >
                 {elemento.titulo || 'Sección sin título'}
-                <span className="arrow-icon">{activeSectionKey === elemento.id ? '&#9650;' : '&#9660;'}</span>
               </li>
             ))}
           </ul>
@@ -243,34 +285,31 @@ function MunicipioDetailScreen() {
 
         <div className="detail-right-panel">
           {isEditingSection ? (
-            <form onSubmit={handleSaveSectionContent} className="edit-section-form">
-              <div className="input-group">
-                <label htmlFor="editSectionContent">
-                  Contenido de "{currentActiveElement?.titulo || 'Sección' }":
-                </label>
-                <textarea
-                  id="editSectionContent"
-                  value={editedSectionContent}
-                  onChange={(e) => setEditedSectionContent(e.target.value)}
-                  rows="10"
-                  className="edit-textarea"
-                />
-              </div>
+            <div className="edit-section-form">
+              <HtmlEditor
+                id="editSectionContent"
+                onChange={(e) => setEditedSectionContent(e.target.value)}
+                html={editedSectionContent} setHtml={setEditedSectionContent}
+                HtmlEditor />
               <div className="form-buttons-container section-edit-buttons">
-                <button type="submit" className="save-button">Guardar Cambios</button>
+                <button type="submit" className="save-button" onClick={handleUpdateSectionEdit}>Guardar Cambios</button>
                 <button type="button" className="cancel-button" onClick={handleCancelSectionEdit}>Cancelar</button>
               </div>
-            </form>
+            </div>
           ) : (
-            <>
-              <div className="detail-text-content">
-                <p>{currentActiveElement?.titulo || 'No hay información disponible para esta sección.'}</p>
-              </div>
+            <div style={{ padding: 0 }}>
+              <h2 className="section-title" style={{ margin: 0, padding: 0 }} >
+                {sectionData.contenido?.titulo || 'Sección sin título'}
+              </h2>
+              <div
+                style={{ justifyContent: 'center', alignItems: 'center', padding: '24px 0' }}
+                dangerouslySetInnerHTML={{ __html: sectionData.contenido?.body || '' }}
+              />
               <div className="detail-buttons-container">
                 <button className="download-button" onClick={() => handleDownload('word')}>WORD</button>
                 <button className="download-button" onClick={() => handleDownload('pdf')}>PDF</button>
               </div>
-            </>
+            </div>
           )}
         </div>
       </main>
