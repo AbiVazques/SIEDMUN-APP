@@ -1,0 +1,20 @@
+/* C:\Users\abisa\Mi-aplicacion\src\SideImage.css */
+
+.side-image-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* --- ¡AQUÍ ESTÁ LA CLAVE DE LA RUTA DE LA IMAGEN! --- */
+  background-image: url('./tu_imagen.png'); /* <<<< ¡ESTA ES LA RUTA CORRECTA SI LA IMAGEN ESTÁ EN LA MISMA CARPETA SRC/! */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.2; /* Para que se vea el fondo vino debajo y el texto claramente */
+  /* --- FIN CAMBIOS --- */
+
+  z-index: -1;
+}

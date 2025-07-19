@@ -1,0 +1,99 @@
+/* src/LoginForm.css */
+
+.login-form-card {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más sutil */
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* Ancho máximo para la tarjeta del formulario */
+}
+
+.login-icon {
+  width: 60px;
+  height: 60px;
+  background-color: #8a2be2; /* Color morado para el icono */
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Icono SVG de usuario (relleno blanco) */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.67 0-5.33-1.34-8-4 2.67-2.66 5.33-4 8-4s5.33 1.34 8 4c-2.67 2.66-5.33 4-8 4z"/></svg>');
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.login-form-card h2 {
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+.login-form-card .input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-form-card label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.login-form-card input[type="email"],
+.login-form-card input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.login-form-card input[type="email"]:focus,
+.login-form-card input[type="password"]:focus {
+  border-color: #6C0739; /* Color de foco */
+  outline: none;
+}
+
+.links-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.forgot-password,
+.register-link {
+  color: #8a2be2; /* Morado para los enlaces */
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover,
+.register-link:hover {
+  color: #6C0739; /* Color vino oscuro al pasar el ratón */
+}
+
+.login-button {
+  background-color: #6C0739; /* Color vino oscuro */
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #8a2be2; /* Morado al pasar el ratón */
+}

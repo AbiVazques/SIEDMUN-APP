@@ -1,0 +1,35 @@
+/* src/LoginScreen.css */
+/* Reset básico para el body y html */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  overflow: hidden; /* Evita scrollbars si el contenido excede la pantalla */
+}
+
+.login-container {
+  display: flex; /* <-- ¡ESTO HACE QUE LOS HIJOS SE PONGAN EN FILA!*/
+  height: 100vh; /* <-- Ocupa toda la altura de la ventana*/
+  width: 100vw; /* <-- Ocupa todo el ancho de la ventana*/
+  overflow: hidden; /* Corta cualquier contenido que se desborde */
+}
+
+.login-form-section {
+  flex: 1; /* <-- Ocupa la mitad del espacio flexible disponible*/
+  background-color: #f8f8f8; /* Fondo blanco */
+  display: flex; /* Para centrar el LoginForm dentro de esta sección */
+  justify-content: center; /* Centra el formulario horizontalmente */
+  align-items: center; /* Centra el formulario verticalmente */
+  padding: 20px; /* Padding interno */
+  box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+
+.login-image-section {
+  flex: 1; /* <-- Ocupa la otra mitad del espacio flexible disponible*/
+  background-color: #6C0739; /* <-- ¡Color de fondo vino/guinda!*/
+  display: flex; /* Para centrar SideImage dentro de esta sección */
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: center; /* Centra la imagen verticalmente */
+  padding: 0; /* No necesitamos padding aquí si SideImage ya lo gestiona */
+  box-sizing: border-box;
+}

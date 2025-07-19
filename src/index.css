@@ -1,0 +1,85 @@
+/* src/index.css */
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+/* --- REGLAS CRUCIALES PARA EL SCROLL Y TAMAÑO GLOBAL --- */
+/* Estas deben ser las UNICAS reglas de body, html, #root */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Asegura que el html y body ocupen toda la altura de la ventana */
+  width: 100%;  /* Asegura que el html y body ocupen todo el ancho de la ventana */
+  overflow-x: hidden; /* Oculta el scroll horizontal si no es deseado globalmente */
+  /* NO pongas overflow-y: auto; o overflow: auto; aquí en body/html.
+     Dejaremos que el scroll vertical lo maneje el contenedor específico si es necesario,
+     o simplemente funcionará si los hijos se desbordan y tienen 'height: 100%' */
+}
+
+/* El #root es el div principal donde se monta tu aplicación React */
+#root {
+  width: 100%;
+  height: 100%; /* El #root debe ocupar el 100% de la altura de su padre (body/html) */
+  display: flex; /* Permite a los hijos de #root (LoginScreen o InstructivoScreen) usar flexbox */
+  flex-direction: column; /* Apila los hijos verticalmente */
+}
+/* --- FIN REGLAS CRUCIALES --- */
+
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}

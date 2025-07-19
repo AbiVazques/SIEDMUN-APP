@@ -1,0 +1,313 @@
+/* src/AddElementScreen.css */
+
+.add-element-screen-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #f0f2f5; /* Fondo gris claro */
+  font-family: Arial, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Header similar a tus otras pantallas */
+.add-element-header {
+  background-color: #6C0739; /* Color vino oscuro */
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+
+.add-element-logo-placeholder {
+  background-color: #fff;
+  color: #6C0739;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.add-element-header h1 {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.add-element-nav-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.add-element-nav-button:hover {
+  background-color: #8a2be2; /* Morado al pasar el ratón */
+}
+
+/* Contenido principal del formulario */
+.add-element-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.add-element-form {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15); /* Sombra más pronunciada */
+  padding: 40px;
+  width: 100%;
+  max-width: 950px; /* Ancho máximo para el formulario */
+  display: flex;
+  flex-direction: column; /* Organiza las secciones y botones verticalmente */
+  gap: 30px;
+}
+
+.form-sections-wrapper {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las secciones se envuelvan en pantallas pequeñas */
+  gap: 30px;
+  width: 100%;
+}
+
+.form-left-section {
+  flex: 2; /* Ocupa más espacio que la sección derecha */
+  min-width: 300px; /* Ancho mínimo */
+}
+
+.form-right-section {
+  flex: 1; /* Ocupa menos espacio */
+  min-width: 250px; /* Ancho mínimo */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinea la imagen al inicio verticalmente */
+}
+
+.input-group {
+  margin-bottom: 20px; /* Espacio entre grupos de input */
+}
+
+.input-group label {
+  display: block;
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.input-group input[type="text"],
+.input-group textarea { /* Estilos para inputs de texto y textarea */
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  resize: vertical; /* Permite redimensionar verticalmente el textarea */
+}
+
+.input-group input[type="text"]:focus,
+.input-group textarea:focus {
+  border-color: #6C0739;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(108, 7, 57, 0.2); /* Sombra suave al enfocar */
+}
+
+/* Estilos para el input de archivo personalizado (documento) */
+.file-input-wrapper {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.file-input-wrapper:hover {
+  border-color: #6C0739;
+  background-color: #f0f0f0;
+}
+
+.file-input-wrapper .hidden-file-input {
+  display: none;
+}
+
+.file-input-wrapper .file-placeholder {
+  flex-grow: 1;
+  padding: 12px;
+  font-size: 16px;
+  color: #777;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-input-wrapper .upload-button {
+  background-color: #8a2be2; /* Morado para el botón "Examinar" */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.file-input-wrapper .upload-button:hover {
+  background-color: #6C0739; /* Vino oscuro al pasar el ratón */
+}
+
+/* Estilos para el área de carga de imagen */
+.image-upload-area {
+  width: 280px; /* Tamaño un poco más grande */
+  height: 280px;
+  border: 2px dashed #a0a0a0; /* Borde gris más visible */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #fefefe; /* Fondo más blanco */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+}
+
+.image-upload-area:hover {
+  border-color: #6C0739;
+  background-color: #f5f5f5;
+}
+
+.image-upload-area .image-placeholder-icon {
+  width: 90px; /* Icono más grande */
+  height: 90px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23AAAAAA"><path d="M12 12c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-2.76 0-5 2.24-5 5h10c0-2.76-2.24-5-5-5zm0-12C7.39 2 4 5.39 4 9.5S7.39 17 12 17s8-3.39 8-7.5S16.61 2 12 2zm0 2c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14c-2.67 0-5.33-1.34-8-4 2.67 2.66 5.33 4 8 4s5.33 1.34 8 4c-2.67 2.66-5.33 4-8 4z"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 10px;
+}
+
+.image-upload-area p {
+  color: #777;
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.image-upload-area .uploaded-image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Contenedor de botones (para alinearlos a la derecha) */
+.form-buttons-container {
+  display: flex;
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  gap: 15px;
+  padding-top: 20px; /* Espacio superior */
+  border-top: 1px solid #eee; /* Línea separadora */
+  margin-top: auto; /* Empuja los botones hacia abajo si hay espacio */
+}
+
+.save-button,
+.cancel-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: bold;
+}
+
+.save-button {
+  background-color: #6C0739; /* Vino oscuro para guardar */
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #8a2be2; /* Morado al pasar el ratón */
+  transform: translateY(-2px); /* Pequeño efecto hover */
+}
+
+.cancel-button {
+  background-color: #ccc; /* Gris para cancelar */
+  color: #333;
+}
+
+.cancel-button:hover {
+  background-color: #bbb;
+  transform: translateY(-2px);
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 850px) {
+  .add-element-form {
+    padding: 30px;
+  }
+  .form-sections-wrapper {
+    flex-direction: column; /* Apila las secciones del formulario */
+  }
+
+  .form-right-section {
+    order: -1; /* Mueve la sección de imagen arriba en móviles */
+    margin-bottom: 20px;
+    align-items: center; /* Centra la imagen */
+  }
+
+  .image-upload-area {
+    width: 250px; /* Un poco más pequeña en móviles */
+    height: 250px;
+  }
+
+  .form-buttons-container {
+    justify-content: center; /* Centra los botones en móviles */
+  }
+}
+
+@media (max-width: 500px) {
+  .add-element-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  .add-element-header h1 {
+    margin-bottom: 10px;
+  }
+  .add-element-nav-button {
+    width: 100%;
+  }
+
+  .add-element-form {
+    padding: 20px;
+  }
+
+  .form-buttons-container {
+    flex-direction: column; /* Apila los botones en pantallas muy pequeñas */
+    gap: 10px;
+  }
+
+  .save-button, .cancel-button {
+    width: 100%;
+  }
+}
