@@ -130,8 +130,11 @@ const HtmlEditor = ({ html, setHtml }) => {
     const insertTable = (rows, cols) => {
         const table = document.createElement('table');
         const tbody = document.createElement('tbody');
-        table.style.width = '100%';
         table.style.borderCollapse = 'collapse';
+        table.style.width = 'max-content';
+        table.style.maxWidth = '100%';
+        table.style.overflowX = 'auto';
+        table.style.display = 'block';
 
         for (let r = 0; r < rows; r++) {
             const row = document.createElement('tr');
